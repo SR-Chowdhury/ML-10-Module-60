@@ -7,7 +7,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1>This is Home, <span>{user && user}</span></h1>
+            <h1>This is Home, <span>{user && user.email}</span></h1>
         </div>
     );
 };

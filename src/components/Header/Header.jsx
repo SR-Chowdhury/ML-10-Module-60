@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Providers/AuthProviders';
 
 const Header = () => {
+
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+
+        logOut()
+            .then(() => alert('Successfully Logout'))
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className='container mx-auto'>
             <div className="navbar bg-base-100">
@@ -14,23 +25,26 @@ const Header = () => {
                         <li className='mr-5'><Link to="/Login">Login</Link></li>
                         <li className='mr-5'><Link to="/Register">Register</Link></li>
                     </ul>
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </div>
+                    {
+                        user &&
+                        <div className="dropdown dropdown-end">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-56">
+                                <li>
+                                    <a className="justify-between">
+                                        {user.email}
+                                        {/* <span className="badge">New</span> */}
+                                    </a>
+                                </li>
+                                <li><a onClick={handleLogOut}>Logout</a></li>
+                            </ul>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
