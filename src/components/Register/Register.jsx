@@ -4,7 +4,7 @@ import { AuthContext } from '../Providers/AuthProviders';
 
 const Register = () => {
 
-    const {user} = useContext(AuthContext);
+    const {user, createUserWithEP} = useContext(AuthContext);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -13,7 +13,14 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password);
+        createUserWithEP(email, password)
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                form.reset();
+                alert('Successfully created!');
+            })
+            .catch(err => console.log(err.message))
     }
 
 
