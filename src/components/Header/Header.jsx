@@ -40,6 +40,7 @@ const Header = () => {
                                         {/* <span className="badge">New</span> */}
                                     </a>
                                 </li>
+                                <li><Link to="/profile">Profile</Link></li>
                                 <li><a onClick={handleLogOut}>Logout</a></li>
                             </ul>
                         </div>
